@@ -11,7 +11,7 @@ public class LogConsumer {
     public static void main(String[] args) {
         var logConsumer = new LogConsumer();
         try(var service = new KafkaService<>(LogConsumer.class.getSimpleName(),
-                Pattern.compile("ECOMMERCE.*"),
+                String.valueOf(Pattern.compile("ECOMMERCE.*")),
                 logConsumer::parse,
                 String.class,
                 Map.of(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName()))){

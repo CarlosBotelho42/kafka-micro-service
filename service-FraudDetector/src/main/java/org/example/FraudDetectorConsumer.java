@@ -36,11 +36,11 @@ public class FraudDetectorConsumer {
         if(isFraud(order)){
             //simulando fraude qunado o valor for maisr que 4500
             System.out.println("Pedido é uma fraude!!");
-            kafkaDispatcher.send("ECOMMERCE_FRAUD_ORDER", order.getUserId(), order);
+            kafkaDispatcher.send("ECOMMERCE_FRAUD_ORDER", order.getEmail(), order);
 
         }else {
             System.out.println("Pedido aprovado.");
-            kafkaDispatcher.send("ECOMMERCE_SUCCESS_ORDER",order.getUserId(), order);
+            kafkaDispatcher.send("ECOMMERCE_SUCCESS_ORDER",order.getEmail(), order);
 
         }
     }

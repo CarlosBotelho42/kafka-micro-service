@@ -7,6 +7,8 @@
     <file url="file://$PROJECT_DIR$/service-FraudDetector/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/service-email/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/service-email/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service-http-ecommerce/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service-http-ecommerce/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/service-log/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/service-log/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/service-new-order/src/main/java" charset="UTF-8" />
