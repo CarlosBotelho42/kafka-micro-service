@@ -11,7 +11,7 @@ public class LogConsumer {
     public static void main(String[] args) {
         var logConsumer = new LogConsumer();
         try(var service = new KafkaService<>(LogConsumer.class.getSimpleName(),
-                String.valueOf(Pattern.compile("ECOMMERCE.*")),
+                Pattern.compile("ECOMMERCE.*"),
                 logConsumer::parse,
                 String.class,
                 Map.of(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName()))){
@@ -19,6 +19,7 @@ public class LogConsumer {
         }}
 
     private void parse(ConsumerRecord<String, String> record) {
+        System.out.println("------------------------------------------");
         System.out.println("LOG: " + record.topic());
         System.out.println(record.key());
         System.out.println(record.value());
