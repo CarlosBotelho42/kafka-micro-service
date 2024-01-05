@@ -31,10 +31,14 @@ public class NewOrderServlet extends HttpServlet {
             var amount = new BigDecimal(req.getParameter("amount"));
 
             var order = new Order(userId, orderId, amount, email);
-            orderDispatcher.send("ECOMMERCE_NEW_ORDER", email, order);
+            orderDispatcher.send("ECOMMERCE_NEW_ORDER", email,
+                    new CorrelationId(NewOrderServlet.class.getSimpleName()),
+                    order);
 
             var emailCode = "Obrigado pelo seu pedido! Estamos processando seu pedido!";
-            emailDispatcher.send("ECOMMERCE_SEND_EMAIL", email, emailCode);
+            emailDispatcher.send("ECOMMERCE_SEND_EMAIL", email,
+                    new CorrelationId(NewOrderServlet.class.getSimpleName()),
+                    emailCode);
 
             System.out.println("Processo da nova compra terminado!!!");
 

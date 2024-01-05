@@ -13,26 +13,26 @@ import java.util.concurrent.ExecutionException;
 public class BatchSendMessageService {
 
     private final Connection connection;
-    public BatchSendMessageService() throws SQLException {
+
+    BatchSendMessageService() throws SQLException {
         String url = "jdbc:sqlite:users_database.db";
         connection = DriverManager.getConnection(url);
-
         try {
-            connection.createStatement().execute("create table Users ("
-                    + "uuid varchar(200) primary key,"
-                    + "email varchar(200))");
-        }catch (SQLException e){
-            e.printStackTrace();
+            connection.createStatement().execute("create table Users (" +
+                    "uuid varchar(200) primary key," +
+                    "email varchar(200))");
+        } catch (SQLException ex) {
+            // be careful, the sql could be wrong, be reallllly careful
+            ex.printStackTrace();
         }
     }
 
-    public static void main(String[] args) throws SQLException {
-        var bathService = new BatchSendMessageService();
+    public static void main(String[] args) throws ExecutionException, InterruptedException, SQLException {
+        var batchService = new BatchSendMessageService();
         try (var service = new KafkaService<>(BatchSendMessageService.class.getSimpleName(),
                 "ECOMMERCE_SEND_MESSAGE_TO_ALL_USERS",
-                bathService::parse,
-                String.class,
-                Map.of())){
+                batchService::parse,
+                Map.of())) {
             service.run();
         }
     }
@@ -45,9 +45,9 @@ public class BatchSendMessageService {
         var message = record.value();
         System.out.println("Topic: " + message.getPayload());
 
-        if(true) throw new RuntimeException("deu um erro que eu forcei");
+        if (true) throw new RuntimeException("deu um erro que eu forcei");
 
-        for(User user : getAllUsers()) {
+        for (User user : getAllUsers()) {
             userDispatcher.sendAsync(message.getPayload(), user.getUuid(),
                     message.getId().continueWith(BatchSendMessageService.class.getSimpleName()),
                     user);
@@ -56,12 +56,11 @@ public class BatchSendMessageService {
     }
 
     private List<User> getAllUsers() throws SQLException {
-        var result = connection.prepareStatement("select uuid from Users").executeQuery();
+        var results = connection.prepareStatement("select uuid from Users").executeQuery();
         List<User> users = new ArrayList<>();
-        while (result.next()){
-            users.add(new User(result.getNString(1)));
+        while (results.next()) {
+            users.add(new User(results.getString(1)));
         }
         return users;
     }
-
 }
