@@ -5,6 +5,10 @@ public class Message<T> {
     private final T payload;
     private final CorrelationId id;
 
+    Message(CorrelationId id, T payload){
+        this.id = id;
+        this.payload = payload;
+    }
 
     public T getPayload() {
         return payload;
@@ -12,11 +16,6 @@ public class Message<T> {
 
     public CorrelationId getId() {
         return id;
-    }
-
-    Message(CorrelationId id, T payload){
-        this.id = id;
-        this.payload = payload;
     }
 
     @Override

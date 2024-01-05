@@ -14,4 +14,5 @@ public class GsonDeserializer implements Deserializer<Message> {
     public Message deserialize(String s, byte[] bytes) {
         return gson.fromJson(new String(bytes), Message.class);
     }
+
 }
