@@ -22,7 +22,6 @@ public class BatchSendMessageService {
                     "uuid varchar(200) primary key," +
                     "email varchar(200))");
         } catch (SQLException ex) {
-            // be careful, the sql could be wrong, be reallllly careful
             ex.printStackTrace();
         }
     }
@@ -39,7 +38,7 @@ public class BatchSendMessageService {
 
     private final KafkaDispatcher<User> userDispatcher = new KafkaDispatcher<>();
 
-    private void parse(ConsumerRecord<String, Message<String>> record) throws SQLException, ExecutionException, InterruptedException {
+    private void parse(ConsumerRecord<String, Message<String>> record) throws SQLException{
         System.out.println("------------------------------------------");
         System.out.println("Processing new batch");
         var message = record.value();
