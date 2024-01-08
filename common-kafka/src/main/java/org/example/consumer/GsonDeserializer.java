@@ -1,10 +1,10 @@
-package org.example;
+package org.example.consumer;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.kafka.common.serialization.Deserializer;
-
-import java.util.Map;
+import org.example.Message;
+import org.example.MessageAdapter;
 
 public class GsonDeserializer implements Deserializer<Message> {
 

@@ -1,6 +1,8 @@
 package org.example;
 
 
+import org.example.dispacher.KafkaDispatcher;
+
 import java.math.BigDecimal;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
@@ -17,11 +19,13 @@ public class NewOrderMain {
                     var amount = new BigDecimal(Math.random() * 5000 + 1);
                     var email = Math.random() + "@email.com";
 
+                    var id = new CorrelationId(NewOrderMain.class.getSimpleName());
+
                     var order = new Order(userId, orderId, amount, email);
-                    orderDispatcher.send("ECOMMERCE_NEW_ORDER", email, order);
+                    orderDispatcher.send("ECOMMERCE_NEW_ORDER", email, id, order);
 
                     var emailCode = "Obrigado pelo seu pedido! Estamos processando seu pedido!";
-                    emailDispatcher.send("ECOMMERCE_SEND_EMAIL", email, emailCode);
+                    emailDispatcher.send("ECOMMERCE_SEND_EMAIL", email, id, emailCode);
                 }
             }
         }

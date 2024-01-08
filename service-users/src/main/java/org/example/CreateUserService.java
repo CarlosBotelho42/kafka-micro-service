@@ -1,6 +1,7 @@
 package org.example;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.example.consumer.KafkaService;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

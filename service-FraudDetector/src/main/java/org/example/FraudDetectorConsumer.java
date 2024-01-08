@@ -1,6 +1,8 @@
 package org.example;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.example.consumer.KafkaService;
+import org.example.dispacher.KafkaDispatcher;
 
 import java.math.BigDecimal;
 import java.util.Map;

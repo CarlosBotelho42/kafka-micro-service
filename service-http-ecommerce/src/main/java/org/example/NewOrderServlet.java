@@ -1,6 +1,7 @@
 package org.example;
 
-import javax.servlet.ServletConfig;
+import org.example.dispacher.KafkaDispatcher;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

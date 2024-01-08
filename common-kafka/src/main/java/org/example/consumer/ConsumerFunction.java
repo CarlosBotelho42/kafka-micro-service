@@ -1,6 +1,7 @@
-package org.example;
+package org.example.consumer;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.example.Message;
 
 import java.util.concurrent.ExecutionException;
 
