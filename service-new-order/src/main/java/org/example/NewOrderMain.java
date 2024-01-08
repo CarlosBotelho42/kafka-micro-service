@@ -24,8 +24,6 @@ public class NewOrderMain {
                     var order = new Order(userId, orderId, amount, email);
                     orderDispatcher.send("ECOMMERCE_NEW_ORDER", email, id, order);
 
-                    var emailCode = "Obrigado pelo seu pedido! Estamos processando seu pedido!";
-                    emailDispatcher.send("ECOMMERCE_SEND_EMAIL", email, id, emailCode);
                 }
             }
         }
