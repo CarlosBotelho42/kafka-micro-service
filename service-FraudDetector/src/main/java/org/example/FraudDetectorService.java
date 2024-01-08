@@ -8,10 +8,10 @@ import java.math.BigDecimal;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class FraudDetectorConsumer {
+public class FraudDetectorService {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        var fraudService = new FraudDetectorConsumer();
-        try (var service = new KafkaService<>(FraudDetectorConsumer.class.getSimpleName(),
+        var fraudService = new FraudDetectorService();
+        try (var service = new KafkaService<>(FraudDetectorService.class.getSimpleName(),
                 "ECOMMERCE_NEW_ORDER",
                 fraudService::parse,
                 Map.of())) {
@@ -47,13 +47,13 @@ public class FraudDetectorConsumer {
             //simulando fraude qunado o valor for maisr que 4500
             System.out.println("Pedido é uma fraude!!");
             kafkaDispatcher.send("ECOMMERCE_FRAUD_ORDER", order.getEmail(),
-                    message.getId().continueWith(FraudDetectorConsumer.class.getSimpleName()),
+                    message.getId().continueWith(FraudDetectorService.class.getSimpleName()),
                     order);
 
         }else {
             System.out.println("Pedido aprovado.");
             kafkaDispatcher.send("ECOMMERCE_SUCCESS_ORDER", order.getEmail(),
-                    message.getId().continueWith(FraudDetectorConsumer.class.getSimpleName()),
+                    message.getId().continueWith(FraudDetectorService.class.getSimpleName()),
                     order);
 
         }

@@ -9,13 +9,13 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class ReadingReportServiceConsumer {
+public class ReadingReportService {
 
     private static final Path SOURCE = new File("src/main/resources/report.txt").toPath();
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        var reportService = new ReadingReportServiceConsumer();
-        try (var service = new KafkaService<>(ReadingReportServiceConsumer.class.getSimpleName(),
+        var reportService = new ReadingReportService();
+        try (var service = new KafkaService<>(ReadingReportService.class.getSimpleName(),
                 "ECOMMERCE_USER_GENERATE_READING_REPORT",
                 reportService::parse,
                 Map.of())) {
