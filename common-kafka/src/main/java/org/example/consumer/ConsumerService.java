@@ -3,9 +3,11 @@ package org.example.consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.example.Message;
 
+import java.io.IOException;
+
 public interface ConsumerService<T> {
 
-     void parse(ConsumerRecord<String, Message<String>> record);
+     void parse(ConsumerRecord<String, Message<T>> record) throws IOException;
 
      String getTopic();
 
