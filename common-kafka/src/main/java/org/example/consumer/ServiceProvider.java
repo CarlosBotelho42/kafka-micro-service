@@ -3,19 +3,28 @@ package org.example.consumer;
 import org.example.EmailService;
 
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 
-public class ServiceProvider {
+public class ServiceProvider<T>  implements Callable<Void> {
 
-    public <T> void run(ServiceFactory<T> factory) throws ExecutionException, InterruptedException {
-        var emailService = factory.create();
+    private final ServiceFactory<T> factory;
 
-        try (var service = new KafkaService(emailService.getConsumerGroup(),
-                emailService.getTopic(),
-                emailService::parse,
+    public ServiceProvider(ServiceFactory<T> factory) {
+        this.factory = factory;
+    }
+
+    public Void call() throws ExecutionException, InterruptedException {
+        var myService = factory.create();
+
+        try (var service = new KafkaService(myService.getConsumerGroup(),
+                myService.getTopic(),
+                myService::parse,
                 Map.of())) {
             service.run();
 
         }
+
+        return null;
     }
 }

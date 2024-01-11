@@ -4,14 +4,17 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.example.consumer.ConsumerService;
 import org.example.consumer.KafkaService;
 import org.example.consumer.ServiceProvider;
+import org.example.consumer.ServiceRunner;
 
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.stream.IntStream;
 
 public class EmailService implements ConsumerService<String> {
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-     new ServiceProvider().run(EmailService::new);
+    public static void main(String[] args){
+        new ServiceRunner(EmailService::new).start(5);
     }
 
     public String getConsumerGroup(){
