@@ -14,7 +14,7 @@ public class ServiceProvider<T>  implements Callable<Void> {
         this.factory = factory;
     }
 
-    public Void call() throws ExecutionException, InterruptedException {
+    public Void call() throws Exception {
         var myService = factory.create();
 
         try (var service = new KafkaService(myService.getConsumerGroup(),
