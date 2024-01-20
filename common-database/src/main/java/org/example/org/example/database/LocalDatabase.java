@@ -2,6 +2,7 @@ package org.example.org.example.database;
 
 import org.apache.kafka.common.protocol.types.Field;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.UUID;
 
@@ -39,5 +40,13 @@ public class LocalDatabase {
             prepareStatement.setString(i + 1, params[i]);
         }
         return prepareStatement;
+    }
+
+    public void close() throws IOException {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
     }
 }
